@@ -8,16 +8,18 @@
     {% load static %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
-<body>
-    <div class="center">
-        <label for="Pokemons">Choose a Pokemon:</label>
 
+<body>
+    <!-- Creates a Select form, iterates through 'pokemon()' dict -->
+    <div class="center">     
+        <label for="Pokemons">Choose a Pokemon:</label>
             <select name="poke" id="poke">
-                <option value="pikachu">Pikachu</option>
-                <option value="charmander">Charmander</option>
-                <option value="bulbassauro">Bulbassauro</option>
-                <option value="squirtle">Squirtle</option>
+                {% for key, value in data_pokemon.items %}
+                   {{ value }}
+                    <option value={{key}}>{{value}}</option>
+                {% endfor %}
             </select>
     </div>
 </body>
+
 </html>
