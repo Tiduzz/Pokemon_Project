@@ -1,8 +1,10 @@
 import requests
+import pokepy
 
 
-def pokemons():
-    response = requests.get('https://pokeapi.co/api/v2/pokemon?limit=151')
+#returns all 151 pokemons as a dict {'pokemon_name':'Pokemon_name'}
+def pokemons_names():
+    response = requests.get('https://pokeapi.co/api/v2/pokemon?limit=5')
     response = response.json()
 
     results = response['results']
@@ -18,10 +20,14 @@ def pokemons():
         data_pokemon.update(x)
     return data_pokemon
 
-if __name__ == '__main__':
-    print (pokemons())
-
-    # cap_poke_names = []
-    # for pokemon in poke_names:
-    #     cap_poke_names.append(pokemon.capitalize())
-    # return cap_poke_names
+# returns description of male pokemon. Only accepts str (as 'pokemon_name') or int (number 1 ~ 151)
+def pokemons_description(pokemon):
+    description = pokepy.V2Client().get_pokemon_species(pokemon).flavor_text_entries[0].flavor_text
+    description = description.replace("\n", " ")
+    poke_desc = ''
+    for i in description:
+        poke_desc += i
+        if i == '.':
+            break
+    poke_description = {'description' : poke_desc}
+    return poke_desc
