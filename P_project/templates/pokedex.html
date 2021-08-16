@@ -16,7 +16,7 @@
         <label for="Pokemons">Choose a Pokemon:</label>
             <select name="poke" id="poke">
                 {% for key, value in data_pokemon.items %}
-                    {% if key == 'pokemon_name' or key == 'pokemon_description' %}
+                    {% if key == 'pokemon_name' or key == 'pokemon_description' or key == 'pokemon_base_status' or key == 'pokemon_types' or key == 'pokemon_png' %}
                         continue
                     {% else %}
                         <option value={{key}}>{{value}}</option>
@@ -29,10 +29,25 @@
     <div>
         <p>Pokedex Entry</p>
         <p>{{data_pokemon}}</p>
-        <br><br><br>
+        <br><br>
+        <p>{{ data_pokemon.pokemon_types.type0 }},
+            {{ data_pokemon.pokemon_types.type1 }}
+        </p>
+        <br>
         <p>{{ data_pokemon.pokemon_name }}</p>
-        <br><br><br>
+        <br>
+        <img src="{{ data_pokemon.pokemon_png }}">
+        <br>
         <p>{{ data_pokemon.pokemon_description }}</p>
+        <br>
+        <p>
+            HP: {{ data_pokemon.pokemon_base_status.hp }}, <br>
+            ATTACK: {{ data_pokemon.pokemon_base_status.attack }},<br>
+            DEFENSE: {{ data_pokemon.pokemon_base_status.defense }},<br>
+            SPECIALATTACK: {{ data_pokemon.pokemon_base_status.specialattack }},<br>
+            SPECIALDEFENSE: {{ data_pokemon.pokemon_base_status.specialdefense }},<br>
+            SPEED: {{ data_pokemon.pokemon_base_status.speed }},<br>
+        </p>
     </div>
 </body>
 
