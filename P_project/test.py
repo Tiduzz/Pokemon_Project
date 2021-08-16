@@ -1,24 +1,23 @@
-import pokepy
 import requests
-
-description = pokepy.V2Client().get_pokemon_species(1).flavor_text_entries[0].flavor_text
-description = description.replace("\n", " ")
-
-poke_desc = ''
-for i in description:
-    poke_desc += i
-    if i == '.':
-        break
+import pokepy
 
 
-# for i in description:
-#     print (i)
 
-print(poke_desc)
+def pokemons_names():
+    response = requests.get('https://pokeapi.co/api/v2/pokemon?limit=5')
+    response = response.json()
 
-# strObj = "This is a sample string"
-# start = 5
-# stop = 10
-# # Remove charactes from index 5 to 10
-# if len(strObj) > stop :
-#     strObj = strObj[0: start:] + strObj[stop + 1::]
+    results = response['results']
+    poke_names = []
+    for dict in results:
+        for key in dict:
+            if key == 'name':
+                poke_names.append(dict[key])
+
+    data_pokemon = {}
+    for pokemon in poke_names:
+        x = {'name' : pokemon.capitalize()}
+        data_pokemon.update(x)
+    return data_pokemon
+
+print (pokemons_names())

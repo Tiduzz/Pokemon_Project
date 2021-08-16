@@ -12,11 +12,10 @@
 <body>
     <!-- Creates a Select form, iterates through data_pokemon dict -->
     <div class="center">    
-        <form action="/pokedex/" method="post">{% csrf_token %}
+        <form action="/pokedex/" method="POST">{% csrf_token %}
         <label for="Pokemons">Choose a Pokemon:</label>
             <select name="poke" id="poke">
                 {% for key, value in data_pokemon.items %}
-                   {{ value }}
                     <option value={{key}}>{{value}}</option>
                 {% endfor %}
             </select>

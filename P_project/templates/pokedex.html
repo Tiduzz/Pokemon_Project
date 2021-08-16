@@ -16,8 +16,11 @@
         <label for="Pokemons">Choose a Pokemon:</label>
             <select name="poke" id="poke">
                 {% for key, value in data_pokemon.items %}
-                   {{ value }}
-                    <option value={{key}}>{{value}}</option>
+                    {% if key == 'pokemon_name' or key == 'pokemon_description' %}
+                        continue
+                    {% else %}
+                        <option value={{key}}>{{value}}</option>
+                    {% endif %}
                 {% endfor %}
             </select>
             <button type="submit">Enviar</button>
@@ -25,7 +28,11 @@
     </div>
     <div>
         <p>Pokedex Entry</p>
-        <p>{{ data_pokemon.description }}</p>
+        <p>{{data_pokemon}}</p>
+        <br><br><br>
+        <p>{{ data_pokemon.pokemon_name }}</p>
+        <br><br><br>
+        <p>{{ data_pokemon.pokemon_description }}</p>
     </div>
 </body>
 
