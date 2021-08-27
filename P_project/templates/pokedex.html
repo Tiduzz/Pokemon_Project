@@ -11,61 +11,91 @@
 </head>
 
 <body>
-    <!-- Creates a Select form, iterates through data_pokemon dict -->
-    <div class="center">    
-        <form action="/pokedex/" method="POST">{% csrf_token %}
-        <label for="Pokemons">Choose a Pokemon:</label>
-            <select name="poke" id="poke">
-                {% for key, value in data_pokemon.items %}
-                    {% if key == 'pokemon_name' or key == 'pokemon_description' or key == 'pokemon_base_status' or key == 'pokemon_types' or key == 'pokemon_png' or key == 'pokemon_weakness' %}
-                        continue
-                    {% else %}
-                        <option value={{key}}>{{value}}</option>
-                    {% endif %}
+        <div class="mx-auto" style="width: 300px;">
+            <h2>The Fakedex Project</h2>
+        </div>
+
+        <div class="row" style="background-color: chartreuse;">
+            <!-- Displays the pokemon's weaknesses -->
+            <div class="col-6 mx-auto" style="background-color: brown;"> 
+                <p>{{ data_pokemon.pokemon_name }}'s weaknesses:</p>{% for i in data_pokemon.pokemon_weakness %}
+                <p>{{i}}</p>
                 {% endfor %}
-            </select>
-            <button type="submit">Enviar</button>
-        </form> 
-    </div>
-    <div>
-        <div class="col-xs-1" align="center">
-            <p>{{ data_pokemon.pokemon_name }}</p>
-            <img src="{{ data_pokemon.pokemon_png }}">
+            </div>
+
+            <div class="col-6 my-auto" style="background-color: hotpink;">
+                <div class="mx-auto" style="width: 0px;">
+                <!-- Displays the pokemon's name -->
+                    <div class="mx-auto" style="width: auto;">
+                        <p>{{ data_pokemon.pokemon_name }}</p>
+                        <img src="{{ data_pokemon.pokemon_png }}">
+                    </div>
+                
+                <!-- Displays the pokemon's type -->
+                    <div>
+                        <span class="badge badge-primary">{{ data_pokemon.pokemon_types.type0 }}</span>
+                        <span class="badge badge-secondary">{{ data_pokemon.pokemon_types.type1 }}</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="container" align="center">
-            <span class="badge badge-primary">{{ data_pokemon.pokemon_types.type0 }}</span>
-            <span class="badge badge-secondary">{{ data_pokemon.pokemon_types.type1 }}</span>
+
+        <div class="row md-8">
+            <!-- Displays the pokedex entry and the pokemon's description -->
+            <div class="col-md-4" style="background-color: red;">
+                <div style="background-color: aqua;">
+                    <p>Pokedex Entry</p>
+                    <div style="background-color: firebrick;">
+                        <p>{{ data_pokemon.pokemon_description }}</p>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-md-4" style="background-color: blue;">
+                <div class="mx-auto" style="width: 200px; background-color: green;">
+                    <!-- Creates a Select form, iterates through data_pokemon dict -->
+                    <div class="center">    
+                        <form action="/pokedex/" method="POST">{% csrf_token %}
+                        <label for="Pokemons">Choose a Pokemon:</label>
+                            <select name="poke" id="poke">
+                                {% for key, value in data_pokemon.items %}
+                                    {% if key == 'pokemon_name' or key == 'pokemon_description' or key == 'pokemon_base_status' or key == 'pokemon_types' or key == 'pokemon_png' or key == 'pokemon_weakness' %}
+                                        continue
+                                    {% else %}
+                                        <option value={{key}}>{{value}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <button type="submit">Enviar</button>
+                        </form> 
+                    </div>
+                </div>
+            </div>
+
+            <!-- Displays the pokemon stats in progress bars -->
+            <div class="col-md-4">
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.hp }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.hp }}</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.attack }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.attack }}</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-info" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.defense }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.defense }}</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.specialattack }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.specialattack }}</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-secondary" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.specialdefense }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.specialdefense }}</div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar bg-Light" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.speed }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.speed }}</div>
+                </div>
+            </div>
         </div>
-        <div> 
-            <p>{{ data_pokemon.pokemon_name }}'s weaknesses:</p>{% for i in data_pokemon.pokemon_weakness %}
-            <p>{{i}}</p>
-            {% endfor %}
-        </div>
-        <div>
-            <p>Pokedex Entry</p>
-            <p>{{ data_pokemon.pokemon_description }}</p>
-        </div>
-        <div class="container" align="right">
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.hp }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.hp }}</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-danger" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.attack }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.attack }}</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar bg-info" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.defense }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.defense }}</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.specialattack }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.specialattack }}</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.specialdefense }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.specialdefense }}</div>
-            </div>
-            <div class="progress">
-                <div class="progress-bar" role="progressbar" style="width: {{ data_pokemon.pokemon_base_status.speed }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ data_pokemon.pokemon_base_status.speed }}</div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
