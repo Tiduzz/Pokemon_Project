@@ -23,10 +23,10 @@
                 {% endfor %}
             </div>
 
-            <div class="col-6 my-auto" style="background-color: hotpink;">
-                <div class="mx-auto" style="width: 0px;">
-                <!-- Displays the pokemon's name -->
-                    <div class="mx-auto" style="width: auto;">
+            <div class="col-6" style="background-color: hotpink;">
+                <div class="d-flex justify-content-center">
+                <!-- Displays the pokemon's name and image -->
+                    <div>
                         <p>{{ data_pokemon.pokemon_name }}</p>
                         <img src="{{ data_pokemon.pokemon_png }}">
                     </div>
